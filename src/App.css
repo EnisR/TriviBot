@@ -1,38 +1,622 @@
-.App {
-  text-align: center;
+/* Global styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+body {
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  height: 100vh;
+  margin: 0;
+  background-color: rgb(185, 180, 180);
+}
+
+/* App container */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%; /* Ensure it takes full width of the wrapper */
+  max-width: 700px; /* Set a maximum width */
+  min-width: 700px; /* Set a minimum width to prevent shrinking */
+  margin: auto;
+  background: rgb(255, 255, 255);
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.dark-mode .app-container {
+  background-color: gray;
+}
+
+/* Chat container */
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  height: calc(100% - 60px); /* Adjust height to fit within parent, accounting for header and input form */
+  padding: 10px;
+  overflow-y: auto;
+  width: 100%; /* Ensure it takes full width of its parent */
+  background-color: rgb(255, 255, 255);
+}
+
+.dark-mode .chat-container {
+  background-color: rgb(44, 36, 36);
+}
+
+/* Chat header */
+.chat-header {
+  background-color: lightgray;
+  padding: 15px;
+  text-align: center;
+  border-radius: 10px 10px 0 0;
+  position: relative;
+  font-weight: 600;
+}
+
+.dark-mode .chat-header {
+  background-color: #000000;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+
+
+/* Chat logo */
+.chat-logo {
+  width: 70px;
+  height: auto;
+  padding-bottom: 5px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+/* Chat messages container */
+.chat-messages {
+  flex: 1;
+  padding: 10px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+/* General chat message styles */
+.chat-message {
+  padding: 10px;
+  border-radius: 15px;
+  margin: 5px 0;
+  max-width: 80%;
+  word-wrap: break-word;
+  border: 1px solid transparent;
+}
+
+/* User message bubble styles */
+.chat-message.user {
+  align-self: flex-end; /* Align user messages to the right */
+  background-color: lightgreen;
+  color: #000000;
+}
+
+/* Bot message bubble styles */
+.chat-message.bot {
+  align-self: flex-start; /* Align bot messages to the left */
+  background-color: lightgreen; /* Light green for bot bubbles */
+  color: black;
+  border: 1px solid #f1f1f1; /* Border matches the bubble color */
+}
+
+/* Dark mode adjustments */
+.dark-mode .chat-message.user {
+  background-color: darkgreen;
+  color: #ffffff;
+  border: 1px solid #444; /* Dark mode user message border */
+}
+
+.dark-mode .chat-message.bot {
+  background-color: darkgreen;
+  color: #ffffff;
+  border: 1px solid #444; /* Dark mode bot message border */
+}
+
+/* User input form */
+.user-input-form {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  background-color: rgb(0, 0, 0);
+  border-top: 1px solid #ddd;
+  position: relative; /* Relative positioning to ensure it's within the container */
+  bottom: 0;
+  left: 0;
+  right: 0; /* Ensure it stretches across the bottom */
+  box-sizing: border-box;
+  width: 100%; /* Ensure it stretches across the full width */
+}
+
+/* Text input field */
+.answer-input {
+  width: 85%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+  box-sizing: border-box;
+  margin-right: 10px;
+}
+
+.dark-mode .answer-input {
+  background-color: lightgray;
+}
+
+/* Send button */
+.send-button {
+  background-color: lightgray;
+  color: black;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px;
+  height: 40px;
+}
+
+.dark-mode .send-button {
+  background-color: black;
+  color: white;
+}
+
+/* Buttons containers */
+.options-container,
+.difficulty-selector,
+.category-selector,
+.extra-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  padding: 10px;
+  width: 100%; /* Ensure it takes full width without affecting parent */
+}
+
+/* General button styles */
+.options-container button,
+.difficulty-selector button,
+.category-selector button,
+.extra-options button {
+  background-color: lightgray;
+  color: black;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px;
+  min-width: 120px; /* Ensure buttons don’t get too small */
+}
+
+/* Dark mode button styles */
+.dark-mode .options-container button,
+.dark-mode .difficulty-selector button,
+.dark-mode .category-selector button,
+.dark-mode .extra-options button {
+  background-color: black;
+  color: white;
+}
+
+/* Initial buttons */
+.initial-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px; /* Space between buttons */
+  padding: 10px;
+}
+
+.initial-buttons button {
+  background-color: lightgray;
+  color: rgb(0, 0, 0);
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px;
+  min-width: 120px; /* Ensure buttons don’t get too small */
+}
+
+.dark-mode .initial-buttons button {
+  background-color: black;
+  color: white;
+}
+
+/* Answer options */
+.answer-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 10px;
+  justify-content: center; /* Center the options */
+}
+
+.answer-options button {
+  background-color: lightgray;
+  color: rgb(0, 0, 0);
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px;
+  min-width: 120px;
+}
+
+.dark-mode .answer-options button {
+  background-color: black;
+  color: white;
+}
+
+/* Fixed position buttons */
+.theme-toggle {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  background-color: #000000;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px;
+  z-index: 1000;
+}
+
+.dark-mode .theme-toggle {
+  background-color: #ffffff;
+  color: black;
+}
+
+.reset-button {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  background-color: darkgreen;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px;
+  z-index: 1000;
+}
+
+.reset-button:hover {
+  background-color: rgb(221, 81, 81);
+}
+
+.dark-mode .reset-button {
+  background-color: #000000;
+}
+
+/* Hint button */
+.hint-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.hint-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.hint-image {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+}
+
+.dark-mode .hint-image {
+  filter: brightness(1.0);
+}
+
+.hint-text {
+  margin-top: 5px;
+  font-size: 14px;
+  color: #000000;
+}
+
+.dark-mode .hint-text {
+  color: white;
+}
+
+/* Timer */
+.timer-container {
+  text-align: center;
+  padding-top: 10px;
+  padding-bottom: 35px;
+}
+
+.timer {
+  font-size: 15px;
+}
+
+.dark-mode .timer-container {
+  background-color: rgb(44, 36, 36);
+  color: white;
+}
+/* Leaderboard Container */
+.leaderboard-container {
+  width: 300px; /* Adjust the width as needed */
+  background-color: lightgray;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  position: fixed; /* Fix position to the left side */
+  top: 20px; /* Adjust the top position as needed */
+  left: 20px; /* Adjust the left position as needed */
+  z-index: 1000; /* Ensure it stays above other content */
+  text-align: center;
+}
+
+.dark-mode .leaderboard-container {
+  background-color: #000000;
+  color: white;
+}
+
+/* Leaderboard Container */
+.leaderboard-container {
+  width: 300px; /* Default width */
+  background-color: lightgray;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  position: fixed; /* Fixed position */
+  top: 20px;
+  left: 20px;
+  z-index: 1000;
+  text-align: center;
+  transition: all 0.3s ease; /* Smooth transition */
+}
+
+/* Minimized state */
+.leaderboard-container.minimized {
+  width: 50px; /* Minimized width */
+  overflow: hidden; /* Hide overflow */
+  height: 50px; /* Minimized height */
+  text-align: center;
+}
+
+/* Leaderboard Table */
+.leaderboard-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.leaderboard-table th, .leaderboard-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+.leaderboard-table th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+}
+
+.leaderboard-table tr {
+  background-color: #f2f2f2;
+}
+
+.leaderboard-table tr:hover {
+  background-color: #ddd;
+}
+
+/* Dark mode adjustments */
+.dark-mode .leaderboard-container {
+  background-color: #333;
+  color: white;
+}
+
+.dark-mode .leaderboard-table th {
+  background-color: #555;
+}
+
+.dark-mode .leaderboard-table tr {
+  background-color: #444;
+}
+
+.dark-mode .leaderboard-table tr:hover {
+  background-color: #666;
+}
+
+/* Save Score Button in Leaderboard Footer */
+.save-score-button {
+  width: 100%;
+  padding: 10px;
+  background-color: lightgray; 
+  color:black;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+.dark-mode .save-score-button{
+ background-color: black;
+ color: white;
+}
+
+.toggle-leaderboard-button {
+  background-color: lightgray;
+  color: black;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 16px;
+}
+
+.dark-mode .toggle-leaderboard-button{
+  background-color: black;
+  color: white;
+}
+
+
+/* Media Queries for Small Screens */
+@media (max-width: 768px) {
+  .leaderboard-container {
+    width: 100%; /* Make it flexible for tablets */
+    max-width: 300px; /* Limit the max width */
+    overflow-x: auto; /* Ensure it doesn't overflow */
   }
-  to {
-    transform: rotate(360deg);
+
+  .leaderboard-container.minimized {
+    width: 60px; /* Keep minimized state */
+    height: 60px;
   }
 }
+
+@media (max-width: 480px) {
+  .leaderboard-container {
+    width: 100%; /* Flexible for phones */
+    max-width: 200px;
+    overflow-x: auto; /* Allow scrolling if necessary */
+  }
+
+  .leaderboard-container.minimized {
+    width: 50px;
+    height: 50px;
+  }
+
+  .leaderboard-table {
+    font-size: 12px; /* Reduce text size for smaller screens */
+  }
+}
+
+
+/* Media Queries */
+@media (max-width: 768px) {
+  .app-container {
+    max-width: 100%;
+    min-width: 100%;
+    height: 100vh;
+    margin: 0;
+  }
+
+  .chat-header {
+    font-size: 14px;
+    padding: 5px;
+  }
+
+  .chat-message {
+    font-size: 14px;
+    max-width: 90%;
+  }
+
+  .user-input-form {
+    padding: 10px;
+  }
+
+  .answer-input {
+    width: 75%;
+    font-size: 14px;
+  }
+
+  .send-button {
+    font-size: 14px;
+    padding: 5px 15px;
+  }
+
+  .options-container button,
+  .difficulty-selector button,
+  .category-selector button,
+  .extra-options button {
+    font-size: 14px;
+    min-width: 100px;
+  }
+
+  .initial-buttons button,
+  .answer-options button {
+    font-size: 14px;
+    padding: 8px 15px;
+    min-width: 100px;
+  }
+
+  .theme-toggle,
+  .reset-button {
+    font-size: 14px;
+    padding: 8px 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .app-container {
+    max-width: 100%;
+    min-width: 100%;
+    height: 100vh;
+    margin: 0;
+  }
+
+  .chat-header {
+    font-size: 12px;
+    padding: 5px;
+  }
+
+  .chat-message {
+    font-size: 12px;
+    max-width: 95%;
+  }
+
+  .user-input-form {
+    padding: 8px;
+  }
+
+  .answer-input {
+    width: 70%;
+    font-size: 12px;
+  }
+
+  .send-button {
+    font-size: 12px;
+    padding: 5px 10px;
+  }
+
+  .options-container button,
+  .difficulty-selector button,
+  .category-selector button,
+  .extra-options button {
+    font-size: 12px;
+    min-width: 90px;
+  }
+
+  .initial-buttons button,
+  .answer-options button {
+    font-size: 12px;
+    padding: 6px 10px;
+    min-width: 90px;
+  }
+
+  .theme-toggle,
+  .reset-button {
+    font-size: 12px;
+    padding: 6px 10px;
+  }
+
+  .hint-image {
+    width: 40px;
+    height: 40px;
+  }
+
+  .hint-text {
+    font-size: 12px;
+  }
+
+  .timer-container {
+    padding-bottom: 20px;
+  }
+
+  .timer {
+    font-size: 12px;
+  }
+}
+
+

@@ -1,0 +1,16 @@
+{
+  "projects": {
+    "default": "trivibot-3b295"
+  },
+  "targets": {
+    "trivibot-3b295": {
+      "hosting": {
+        "main-app": [
+          "trivibot-3b295"
+        ]
+      }
+    }
+  },
+  "etags": {},
+  "dataconnectEmulatorConfig": {}
+}

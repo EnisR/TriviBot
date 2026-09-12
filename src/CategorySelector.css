@@ -1,0 +1,24 @@
+/* src/CategorySelector.css */
+.category-selector {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 10px;
+}
+
+.category-button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  margin: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 18px;
+  width: 100%;
+  max-width: 300px;
+}
+
+.category-button:hover {
+  background-color: #45a049;
+}
